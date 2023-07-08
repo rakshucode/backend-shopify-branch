@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        #toast {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: #333;
+          color: #fff;
+          padding: 10px 20px;
+          border-radius: 4px;
+        }
+      
+        .hide {
+          display: none;
+        }
+      #form {
+      background: pink;
+      }
+      </style>
+      <form id="form"><label for="name">Sample Input:</label> <input type="text" id="sample" name="sample" required="" /> <br /> <input type="submit" value="Submit" /></form>
+      
+      <div id="toast" class="hide"><span id="toastMessage"></span></div>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+      <script>
+        document.getElementById("form").addEventListener("submit", function(event) {
+          event.preventDefault(); 
+          var data = document.getElementById("sample").value;
+          axios.post("https://shopify-backend-entr.onrender.com/form", {
+            data: data
+          })
+          .then((response) => {
+            console.log(response);
+            displayToast(response);
+          });
+        });
+      
+        function displayToast(message) {
+          var toast = document.getElementById("toast");
+          var toastMessage = document.getElementById("toastMessage");
+          toastMessage.innerText = message;
+          toast.classList.remove("hide");
+          setTimeout(function() {
+            toast.classList.add("hide");
+          }, 3000);
+        }
+      </script>
+</body>
+</html>
