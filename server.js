@@ -36,7 +36,8 @@ const FormData = mongoose.model("FormData", formDataSchema);
 app.post("/form", async (req, res) => {
   try {
     const formData = req.body;
-    const newFormData = new FormData(formData);
+    console.log(formData);
+    const newFormData = new FormData({sampledata: formData.data});
     const savedFormData = await newFormData.save();
     console.log("Form data stored in MongoDB:", savedFormData);
     res.status(200).send("Form submitted successfully");
